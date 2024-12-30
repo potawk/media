@@ -1,0 +1,398 @@
+@charset "UTF-8";
+/*-----------------------------------------
+レスポンシブ
+------------------------------------------*/
+@mixin breakpoint($point) {
+	@if $point == tablet {
+		@media (max-width: 767px) {
+			@content;
+		}
+	}
+}
+
+/*-----------------------------------------
+変数
+------------------------------------------*/
+$main-color: #121212;
+$second-color: #fff;
+
+/*-----------------------------------------
+共通部分
+------------------------------------------*/
+html{
+	font-size: 62.5%;
+}
+
+body{
+	font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+	color: $main-color;
+	font-size: 1.44rem;
+}
+
+img{
+	width: 100%;
+}
+
+ul{
+	list-style: none;
+}
+
+a{
+	text-decoration: none;
+}
+
+.wrap{
+	max-width: 1210px;
+	margin: auto;
+}
+
+.section-title{
+	font-size: 3.6rem;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 30px;
+
+	@include breakpoint (tablet){
+		font-size: 2.4rem;
+		margin-bottom: 20px;
+	}
+}
+
+/*-----------------------------------------
+ヘッダー
+------------------------------------------*/
+.header{
+	height: 80px;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	padding: 0 40px;
+	background-color: $second-color;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 20;
+
+	@include breakpoint (tablet){
+		padding: 0 16px;
+	}
+}
+
+.header__logo{
+	width: 175px;
+}
+
+.hamburger-menu {
+  display: block;
+  width: 30px;
+  height: 23px;
+  position: relative;
+  z-index: 30;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.hamburger-menu:hover {
+  opacity: 0.5;
+}
+
+.hamburger-menu span {
+  width: 30px;
+  height: 2px;
+  background: $main-color;
+  position: absolute;
+  left: 0;
+  transition: 0.4s ease-in-out;
+}
+
+.hamburger-menu span:nth-child(1) {
+  top: 0;
+}
+
+.hamburger-menu span:nth-child(2) {
+  top: 10px;
+}
+
+.hamburger-menu span:nth-child(3) {
+  top: 20px;
+}
+
+/* ナビゲーションのCSSを書いてください */
+#hamburger-navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  z-index: 20;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.sections {
+	position: fixed;
+  top: 0;
+  list-style: none;
+	width: 300px;
+	height: 100%;
+	background-color: #000;
+	padding: 60px 25px;
+	left: -300px;
+	opacity: 0;
+	transition: all 0.5s;
+}
+
+.hamburger-menu-section {
+
+	&:nth-child(1), &:nth-child(2), &:nth-child(3){
+		padding: 20px 0;
+		border-top: 1px solid $second-color;
+	}
+
+	&:nth-child(3){
+		border-bottom: 1px solid $second-color;
+		margin-bottom: 65px;
+	}
+
+	&:nth-child(n + 4){
+		margin-bottom: 10px;
+		line-height: 1.7;
+	}
+}
+
+/* セクション内の`a`タグのCSSを書いてください */
+a {
+  color: #fff;
+  font-size: 1.44rem;
+}
+
+/* ナビゲーションを表示するためのCSSを書いてください */
+#hamburger-navigation.active {
+  opacity: 1;
+  visibility: visible;
+
+	.sections{
+		left: 0;
+		opacity: 1;
+	}
+}
+
+.sections.active{
+}
+
+.hamburger-menu.active span:nth-child(1) {
+  top: 10px;
+  left: 0;
+  transform: rotate(-45deg);
+  background: $second-color;
+}
+
+.hamburger-menu.active span:nth-child(2),
+.hamburger-menu.active span:nth-child(3) {
+  top: 10px;
+  transform: rotate(45deg);
+  background: $second-color;
+}
+
+/*-----------------------------------------
+video
+------------------------------------------*/
+#video{
+	margin-top: 80px;
+	width: 100%;
+
+	video{
+		width: 100%;
+		height: 100%;
+	}
+}
+
+/*-----------------------------------------
+pickup
+------------------------------------------*/
+#pickup{
+	padding: 100px 0;
+
+	@include breakpoint (tablet){
+		padding-top: 80px;
+		padding-bottom: 100px;
+	}
+}
+
+.swiper-wrapper{
+	width: 100%;
+	height: 271px;
+}
+/*-----------------------------------------
+feature
+------------------------------------------*/
+#feature{
+	padding-bottom: 60px;
+
+	@include breakpoint (tablet){
+		padding-bottom: 90px;
+		padding-left: 16px;
+		padding-right: 16px;
+	}
+}
+
+.grid{
+	display: grid;
+  grid-template-columns: repeat(3, 1fr);
+	column-gap: 27px;
+	row-gap: 26px;
+
+	@include breakpoint (tablet){
+		grid-template-columns: repeat(1, 1fr);
+		column-gap: 0;
+	}
+}
+
+.item{
+	box-shadow: 0 0 20px 2px rgb(0, 0, 0);
+}
+
+.item__img{
+	opacity: 0;
+}
+
+.item__content{
+	padding: 30px;
+	opacity: 0;
+
+	@include breakpoint (tablet){
+		padding: 16px;
+	}
+}
+
+.item__img.is-inview, .item__content.is-inview{
+	animation: fadein 0.5s 0.5s ease-out 1 forwards;
+}
+
+@keyframes fadein{
+	0%{
+		opacity: 0;
+		transform: translateY(50%);
+	}
+	100%{
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.item__content-category{
+	font-size: 1.2rem;
+	margin-bottom: 20px;
+}
+
+.item__content-txt{
+	font-size: 1.44rem;
+	margin-bottom: 20px;
+}
+
+.item__content-date{
+	font-size: 1.2rem;
+	text-align: right;
+}
+
+/*-----------------------------------------
+contact
+------------------------------------------*/
+#contact{
+	padding: 50px 0;
+	background: $main-color;
+	color: $second-color;
+	width: 100%;
+
+	@include breakpoint (tablet){
+		padding: 80px 16px;
+	}
+}
+
+.content{
+	display: flex;
+	justify-content: space-between;
+
+	@include breakpoint (tablet){
+		display: block;
+	}
+}
+
+.contact-info{
+	width: calc(50% - 70px);
+	font-size: 1.44rem;
+
+	@include breakpoint (tablet){
+		width: 100%;
+	}
+}
+
+.contact-info-title{
+	margin-bottom: 30px;
+	font-weight: normal;
+}
+
+.contact-info-txt{
+	margin-bottom: 30px;
+}
+
+.contact-form{
+	width: calc(50% - 70px);
+
+	@include breakpoint (tablet){
+		width: 100%;
+	}
+}
+
+.form-parts{
+	margin-bottom: 20px;
+}
+
+.form-label{
+	font-size: 1.44rem;
+	line-height: 1.7;
+}
+
+.form-input{
+	background: $second-color;
+	height: 44px;
+	width: 100%;
+}
+
+.form-message{
+	background: $second-color;
+	height: 68px;
+	width: 100%;
+}
+
+.btn{
+	color: $second-color;
+	text-align: center;
+	font-size: 1.44rem;
+	line-height: 1.7;
+	padding: 12px 80px;
+	border: 1px solid $second-color;
+
+	@include breakpoint (tablet){
+		width: 100%;
+	}
+}
+
+/*-----------------------------------------
+フッター
+------------------------------------------*/
+.footer{
+	text-align: center;
+	background: $main-color;
+	color: $second-color;
+	height: 38px;
+	line-height: 38px;
+
+	p{
+		font-size: 1.2rem;
+	}
+}
