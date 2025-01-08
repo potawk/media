@@ -130,7 +130,7 @@ a {
   list-style: none;
   width: 300px;
   height: 100%;
-  background-color: #000;
+  background: #121212;
   padding: 60px 25px;
   left: -300px;
   opacity: 0;
@@ -227,15 +227,13 @@ feature
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  -moz-column-gap: 27px;
-       column-gap: 27px;
+  column-gap: 27px;
   row-gap: 26px;
 }
 @media (max-width: 767px) {
   .grid {
     grid-template-columns: repeat(1, 1fr);
-    -moz-column-gap: 0;
-         column-gap: 0;
+    column-gap: 0;
   }
 }
 
